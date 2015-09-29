@@ -4,7 +4,7 @@ console.log(files)
 Meteor.startup(function () {
 
   if (Contacts.find({}).count() === 0) {
-    _(2).times(function(n) {
+    _(3).times(function(n) {
       var user = Fake.user();
 	  var tracks = [
 		  {track: 'foo', artist: 'bar'},
@@ -12,6 +12,7 @@ Meteor.startup(function () {
 	  ]
 	  var tracksArr = files
 	  var tracksObj = []
+	  console.log(tracksObj)
 	  tracksArr.forEach(function(track){
 		  obj = {
 			  track: track,
@@ -19,18 +20,17 @@ Meteor.startup(function () {
 		  }
 		  tracksObj.push(obj)
 	  })
-	  console.log(tracksObj)
+	  console.log('tracksObj', tracksObj)
 
       Contacts.insert({
         name: {
-          first: tracks[n].track,
-          last: tracks[n].artist
+          first: tracksObj[n].track,
+          last: tracksObj[n].artist
         },
         emails: [{label: 'Work', address: user.email}],
         priority: Fake.fromArray(['High', 'Medium', 'Low']),
         location: {
-          city: Fake.word(),
-          state: Fake.fromArray(STATES)
+          city: Fake.word()
         },
         details: {
           notes: Fake.paragraph(),
