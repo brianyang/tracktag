@@ -4,7 +4,7 @@
   "description": "![](http://f.cl.ly/items/391y4708420P0H001k1G/meteoric.png)",
   "main": "index.js",
   "dependencies": {
-    "id3": "^0.0.3"
+    "id3": "0.0.3"
   },
   "devDependencies": {
     "id3": "0.0.3"
