@@ -31,6 +31,15 @@ Contacts.attachSchema(new SimpleSchema({
   details: {
     type: Object
   },
+  'details.tags': {
+    type: String,
+    label: 'Tags',
+    optional: true,
+    autoform: {
+      rows: 2,
+      'label-type': 'stacked'
+    }
+  },
   'details.notes': {
     type: String,
     label: 'Notes',

@@ -1,6 +1,5 @@
 var fs = Npm.require('fs')
 var files = fs.readdirSync('../../../../../server/songs/')
-console.log(files)
 Meteor.startup(function () {
 
   if (Contacts.find({}).count() === 0) {
@@ -12,7 +11,6 @@ Meteor.startup(function () {
 	  ]
 	  var tracksArr = files
 	  var tracksObj = []
-	  console.log(tracksObj)
 	  tracksArr.forEach(function(track){
 		  obj = {
 			  track: track,
@@ -20,7 +18,6 @@ Meteor.startup(function () {
 		  }
 		  tracksObj.push(obj)
 	  })
-	  console.log('tracksObj', tracksObj)
 
       Contacts.insert({
         name: {
@@ -33,6 +30,7 @@ Meteor.startup(function () {
           city: Fake.word()
         },
         details: {
+		  tags: 'tag',
           notes: Fake.paragraph(),
           active: Fake.fromArray([true, false])
         }
