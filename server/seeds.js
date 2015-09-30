@@ -1,4 +1,5 @@
 var fs = Npm.require('fs')
+var id3 = Npm.require('id3')
 var files = fs.readdirSync('../../../../../server/songs/')
 Meteor.startup(function () {
 
@@ -30,7 +31,7 @@ Meteor.startup(function () {
           city: Fake.word()
         },
         details: {
-		  tags: 'tag',
+		  tags: '',
           notes: Fake.paragraph(),
           active: Fake.fromArray([true, false])
         }
