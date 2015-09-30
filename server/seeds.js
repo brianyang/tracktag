@@ -1,39 +1,37 @@
 var fs = Npm.require('fs')
 var id3js = Meteor.npmRequire('id3js')
-var files = fs.readdirSync('../../../../../server/songs/')
-console.log(id3js)
+var meteorRoot = fs.realpathSync( process.cwd() + '/../' )
+var base64arraybuffer = Meteor.npmRequire('base64-arraybuffer')
+var files = fs.readdirSync(meteorRoot + '/web.browser/app/songs/')
 Meteor.startup(function () {
 
-  if (Contacts.find({}).count() < 55) {
-    _(1).times(function(n) {
-      var user = Fake.user();
-	  var tracksArr = files
-	  var tracksObj = []
-	  console.log('foo')
-	  tracksArr.forEach(function(track){
-		  id3js({ file: '../../../../../server/songs/' + track, type: id3js.OPEN_LOCAL }, Meteor.bindEnvironment(addTrack));
-	  })
+	var user = Fake.user();
+	var tracksArr = files
+	var tracksObj = []
+	tracksArr.forEach(function(track){
+		id3js({ file: meteorRoot + '/web.browser/app/songs/' + track, type: id3js.OPEN_LOCAL }, Meteor.bindEnvironment(addTrack));
+	})
 
-	  function addTrack(err, tags) {
-		  console.log('err, tags', err, tags)
-		  Contacts.insert({
+	function addTrack(err, tags) {
+		var img = base64arraybuffer.encode(tags.v2.image.data)
+		console.log(img)
+		Contacts.insert({
 			name: {
-			  first: tags.title,
-			  last: tags.artist
+				first: tags.title,
+				last: tags.artist
 			},
 			emails: [{label: 'Work', address: user.email}],
 			priority: Fake.fromArray(['High', 'Medium', 'Low']),
 			location: {
-			  city: Fake.word()
+				city: Fake.word()
 			},
 			details: {
-			  tags: '',
-			  notes: Fake.paragraph(),
-			  active: Fake.fromArray([true, false])
-			}
-		  });
-	  }
-    });
-  }
+				tags: '',
+				notes: Fake.paragraph(),
+				active: Fake.fromArray([true, false])
+			},
+			avatarUrl: "data:" + tags.v2.image.mime + ";base64," + img
+		});
+	}
 
 });

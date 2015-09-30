@@ -6,3 +6,7 @@ $loading-font-size: 22px;
 .contact-detail {
   background: $stable;
 }
+.item-avatar > img:first-child {
+	max-height: none;
+	border-radius: 0;
+}

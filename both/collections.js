@@ -3,7 +3,7 @@ Contacts = new Mongo.Collection('contacts');
 Contacts.before.insert(function (userId, doc) {
   var gender = Random.choice(['men', 'women']);
   var num = _.random(0, 50);
-  doc.avatarUrl = 'https://randomuser.me/api/portraits/thumb/' + gender + '/' + num + '.jpg';
+  // doc.avatarUrl = 'https://randomuser.me/api/portraits/thumb/' + gender + '/' + num + '.jpg';
 });
 
 Contacts.attachSchema(new SimpleSchema({
