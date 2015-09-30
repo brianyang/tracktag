@@ -11,15 +11,15 @@ Meteor.startup(function () {
 	  var tracksObj = []
 	  console.log('foo')
 	  tracksArr.forEach(function(track){
-		  id3js({ file: '../../../../../server/songs/' + track, type: id3js.OPEN_LOCAL }, addTrack)
+		  id3js({ file: '../../../../../server/songs/' + track, type: id3js.OPEN_LOCAL }, Meteor.bindEnvironment(addTrack));
 	  })
 
 	  function addTrack(err, tags) {
 		  console.log('err, tags', err, tags)
 		  Contacts.insert({
 			name: {
-			  first: 'tracksObj[n].title',
-			  last:'tracksObj[n].artist'
+			  first: tags.title,
+			  last: tags.artist
 			},
 			emails: [{label: 'Work', address: user.email}],
 			priority: Fake.fromArray(['High', 'Medium', 'Low']),
