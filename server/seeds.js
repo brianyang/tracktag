@@ -1,10 +1,10 @@
 var fs = Npm.require('fs')
-// var id3 = Npm.require('id3')
-// var ID3 = Meteor.npmRequire('id3')
+var id3js = Meteor.npmRequire('id3js')
 var files = fs.readdirSync('../../../../../server/songs/')
+console.log(id3js)
 Meteor.startup(function () {
 
-  if (Contacts.find({}).count() < 5) {
+  if (Contacts.find({}).count() < 15) {
     _(3).times(function(n) {
       var user = Fake.user();
 	  var tracksArr = files
@@ -17,10 +17,11 @@ Meteor.startup(function () {
 		  tracksObj.push(obj)
 	  })
 	  var track = tracksArr[0]
-	   // ID3.loadTags(track + ".mp3", function() {
-		//    var tags = ID3.getAllTags(track);
-		//    alert(tags.artist + " - " + tags.title + ", " + tags.album);
-	   // });
+	  id3js({ file: '../../../../../server/songs/' + track, type: id3js.OPEN_LOCAL }, function(err, tags) {
+		  console.log('tags', tags.title)
+		  console.log('tags', tags.artist)
+	      // tags now contains your ID3 tags
+	})
 
       Contacts.insert({
         name: {
